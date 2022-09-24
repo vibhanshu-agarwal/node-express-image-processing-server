@@ -3,7 +3,7 @@ const router = Router();
 const multer = require("multer");
 const path = require("path");
 //Resolve the path to the photo viewer
-const photoPath = path.resolve(__dirname, "../../client/photoviewer.html");
+const photoPath = path.resolve(__dirname, "../../client/photo-viewer.html");
 
 const storage = multer.diskStorage({
   destination: "api/uploads/",
@@ -15,8 +15,8 @@ const upload = multer({
 });
 
 //Create the photo-viewer get route
-router.get("/photo-viewer", (req, res) => {
-  res.sendFile(photoPath);
+router.get("/photo-viewer", (request, response) => {
+  response.sendFile(photoPath);
 });
 
 router.post("/upload", upload.single("photo"), (req, res) => {
