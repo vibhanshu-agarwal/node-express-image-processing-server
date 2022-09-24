@@ -4,7 +4,7 @@ const app = express();
 const router = require("./src/router");
 
 
-const pathToIndex = path.join(__dirname, "../client/index.html");
+const pathToIndex = path.resolve(__dirname, "../client/index.html");
 
 app.use("/" , router);
 
