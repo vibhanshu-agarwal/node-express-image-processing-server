@@ -22,6 +22,9 @@ module.exports = function imageProcessor(filename) {
         const resizeWorker = new Worker(pathToResizeWorker, {
           workerData: { source: sourcePath, destination: resizedDestination },
         });
+        const monochromeWorker = new Worker(pathToMonoChromeWorker, {
+          workerData: { source: sourcePath, destination: monochromeDestination },
+        });
         resizeWorker.on("message", (message) => {
           resizeWorkerFinished = true;
           if (monoChromeWorkerFinished) {
@@ -37,12 +40,7 @@ module.exports = function imageProcessor(filename) {
           }
         });
 
-        const monochromeWorker = new Worker(pathToMonoChromeWorker, {
-          workerData: {
-            source: sourcePath,
-            destination: monochromeDestination,
-          },
-        });
+
         monochromeWorker.on("message", (message) => {
           monoChromeWorkerFinished = true;
           if (resizeWorkerFinished) {
